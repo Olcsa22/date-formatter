@@ -8,7 +8,7 @@ public class HumanReadableTimeServiceImpl implements HumanReadableTimeService {
      * Normally, such fields would be DI-d. I thought of simply instantiating it there,
      * but that'd tie the field to a specific implementation (even if there's only one for now.)
      */
-    private InputReaderService inputReaderService;
+    private final InputReaderService inputReaderService;
 
     public HumanReadableTimeServiceImpl(InputReaderService inputReaderService){
         this.inputReaderService = inputReaderService;
