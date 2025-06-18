@@ -1,5 +1,5 @@
 package services;
 
 public interface HumanReadableTimeService {
-    void extractTimeFromInput();
+    String extractTimeFromInput();
 }

@@ -5,24 +5,39 @@ import services.SecondToHRTimeConverter;
 
 public class SecondToHRTimeConverterImpl implements SecondToHRTimeConverter {
 
-    StringBuilder readableTimeBuilder = new StringBuilder();
 
+    /**
+     * Used a StringBuilder, as it adds only one string to our string pool, so it's more memory-efficient
+     * instead of using string concatenations
+     */
     @Override
-    public void extractHumanReadableTime(int seconds) {
+    public String extractHumanReadableTime(int seconds) {
+        StringBuilder readableTimeBuilder = new StringBuilder();
+
         for(TimeConstants timeUnit : TimeConstants.values()){
             int count = Math.floorDiv(seconds, timeUnit.inSeconds);
             if(count>0){
                 seconds -= count*timeUnit.inSeconds;
-                appendTime(timeUnit, count, seconds==0);
+                appendTime(readableTimeBuilder, timeUnit, count, seconds==0);
             }
         }
 
-        System.out.println(readableTimeBuilder.toString());
+        checkForEmpty(readableTimeBuilder);
+        return readableTimeBuilder.toString();
     }
 
-    private void appendTime(TimeConstants timeUnit, int amount, boolean end){
-        if(end && !readableTimeBuilder.isEmpty()){
-            readableTimeBuilder.append("and ");
+    private void checkForEmpty(StringBuilder readableTimeBuilder) {
+        if(readableTimeBuilder.isEmpty()){
+            readableTimeBuilder.append("now");
+        }
+    }
+
+    private void appendTime(StringBuilder readableTimeBuilder, TimeConstants timeUnit, int amount, boolean lastUnit){
+        if(!lastUnit && !readableTimeBuilder.isEmpty()){
+            readableTimeBuilder.append(", ");
+        }
+        if(lastUnit && !readableTimeBuilder.isEmpty()){
+            readableTimeBuilder.append(" and ");
         }
         readableTimeBuilder.append(amount)
                 .append(" ")
@@ -30,9 +45,6 @@ public class SecondToHRTimeConverterImpl implements SecondToHRTimeConverter {
 
         if(amount>1){
             readableTimeBuilder.append('s');
-        }
-        if(!end){
-            readableTimeBuilder.append(", ");
         }
     }
 }

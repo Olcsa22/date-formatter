@@ -20,7 +20,10 @@ public class Main {
         HumanReadableTimeService humanReadableTimeService
                 = new HumanReadableTimeServiceImpl(new InputReaderServiceImpl(), new SecondToHRTimeConverterImpl());
 
-        humanReadableTimeService.extractTimeFromInput();
+        while(true) {
+            String result = humanReadableTimeService.extractTimeFromInput();
+            System.out.println(result);
+        }
 
 
     }

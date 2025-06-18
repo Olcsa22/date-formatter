@@ -1,5 +1,5 @@
 package services;
 
 public interface SecondToHRTimeConverter {
-    void extractHumanReadableTime(int seconds);
+    String extractHumanReadableTime(int seconds);
 }

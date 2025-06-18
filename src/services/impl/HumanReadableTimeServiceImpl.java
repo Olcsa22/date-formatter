@@ -3,6 +3,7 @@ package services.impl;
 import services.HumanReadableTimeService;
 import services.InputReaderService;
 import services.SecondToHRTimeConverter;
+import util.HumanReadableTimeCacheUtil;
 
 public class HumanReadableTimeServiceImpl implements HumanReadableTimeService {
     /**
@@ -25,8 +26,18 @@ public class HumanReadableTimeServiceImpl implements HumanReadableTimeService {
      * I'm aware this is a bit bending the Single Responsibility Principle, but I didn't want to overcomplicate it either.
      */
     @Override
-    public void extractTimeFromInput() {
+    public String extractTimeFromInput() {
         int input = inputReaderService.readInput();
-        secondToHRTimeConverter.extractHumanReadableTime(input);
+        return getCachedOrConvertedTime(input);
+    }
+
+    private String getCachedOrConvertedTime(int input){
+        String cacheContent = HumanReadableTimeCacheUtil.findInCache(input);
+        if(cacheContent == null){
+            String result = secondToHRTimeConverter.extractHumanReadableTime(input);
+            HumanReadableTimeCacheUtil.cache(input, result);
+            return result;
+        }
+        return cacheContent;
     }
 }
