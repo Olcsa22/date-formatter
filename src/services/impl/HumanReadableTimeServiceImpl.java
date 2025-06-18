@@ -2,6 +2,7 @@ package services.impl;
 
 import services.HumanReadableTimeService;
 import services.InputReaderService;
+import services.SecondToHRTimeConverter;
 
 public class HumanReadableTimeServiceImpl implements HumanReadableTimeService {
     /**
@@ -9,9 +10,11 @@ public class HumanReadableTimeServiceImpl implements HumanReadableTimeService {
      * but that'd tie the field to a specific implementation (even if there's only one for now.)
      */
     private final InputReaderService inputReaderService;
+    private final SecondToHRTimeConverter secondToHRTimeConverter;
 
-    public HumanReadableTimeServiceImpl(InputReaderService inputReaderService){
+    public HumanReadableTimeServiceImpl(InputReaderService inputReaderService, SecondToHRTimeConverter secondToHRTimeConverter){
         this.inputReaderService = inputReaderService;
+        this.secondToHRTimeConverter = secondToHRTimeConverter;
     }
 
     /**
@@ -24,6 +27,6 @@ public class HumanReadableTimeServiceImpl implements HumanReadableTimeService {
     @Override
     public void extractTimeFromInput() {
         int input = inputReaderService.readInput();
-
+        secondToHRTimeConverter.extractHumanReadableTime(input);
     }
 }
