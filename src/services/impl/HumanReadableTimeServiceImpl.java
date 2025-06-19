@@ -3,7 +3,7 @@ package services.impl;
 import services.HumanReadableTimeService;
 import services.InputReaderService;
 import services.SecondToHRTimeConverter;
-import util.HumanReadableTimeCacheUtil;
+import cache.HumanReadableTimeCacheUtil;
 
 public class HumanReadableTimeServiceImpl implements HumanReadableTimeService {
     /**

@@ -1,16 +1,15 @@
-package util;
+package cache;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HumanReadableTimeCacheUtil {
 
-    private static Map<Integer, String> resultCache = new HashMap<>();
+
+    private static Map<Integer, String> resultCache = new SelfEmptyingLinkedHashMap<>();
 
     public static void cache(int input, String result) {
-        if(!resultCache.containsKey(input)){
-            resultCache.put(input, result);
-        }
+        resultCache.put(input, result);
     }
 
     public static String findInCache(int input) {
