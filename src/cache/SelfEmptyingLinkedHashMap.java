@@ -12,7 +12,7 @@ import java.util.Map;
  * @param <V> value type
  */
 public class SelfEmptyingLinkedHashMap<K, V> extends LinkedHashMap<K, V> {
-    private static int MAXIMUM_CACHE_SIZE = 1000;
+    private static final int MAXIMUM_CACHE_SIZE = 1000;
 
     @Override
     protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
